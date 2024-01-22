@@ -8,15 +8,15 @@ export default function SearchBox() {
         <h1 className="text-3xl font-bold mt-2 text-gray-800">
           Bazar Universal
         </h1>
-        <div className="mt-4 w-full flex items-center rounded-md border p-2 bg-white">
+        <div className="mt-4 w-full flex items-center rounded-md border pr-2 bg-white">
           <input
-            className="ml-2 p-2 w-full focus:outline-none"
+            className="ml-2 p-2  w-full focus:outline-none"
             placeholder="laptops, smartphones, ..."
             type="text"
           />
           <SearchIcon className="w-6 h-6" />
         </div>
-        <Button />
+        <Button title="Buscar" />
       </div>
     </div>
   )
