@@ -1,30 +1,56 @@
-import clsx from "clsx";
-interface BadgeProps {
-  category?: string;
-}
+import clsx from "clsx"
+import { Product } from "@/app/lib/types"
 
-export default function Badge({ category }: BadgeProps) {
-  console.log(category);
+export default function Badge({ product }: { product: Product[] }) {
+  return (
+    <>
+      {Array.from(new Set(product.map((product) => product.category))).map(
+        (category) => {
+          const productsInCategory = product.filter(
+            (product) => product.category === category
+          )
+          const totalStock = productsInCategory.reduce(
+            (total, product) => total + product.stock,
+            0
+          )
 
-  const badgeClasses = clsx(
-    "inline-block",
-    "whitespace-nowrap",
-    "rounded-md",
-    "px-2",
-    "py-1",
-    "text-sm",
-    "font-bold",
-    "leading-none",
-    "text-white",
-    {
-      "bg-red-500": category === "smartphones",
-      "bg-green-500": category === "fragrances",
-      "bg-blue-500": category === "laptops",
-      "bg-yellow-400": category === "home-decoration",
-      "bg-green-400": category === "groceries",
-      "bg-indigo-400": category === "skincare",
-    }
-  );
+          const badgeClasses = clsx(
+            "inline-block",
+            "whitespace-nowrap",
+            "rounded-md",
+            "px-2",
+            "py-2",
+            "text-sm",
+            "font-bold",
+            "leading-none",
+            "text-white",
+            {
+              "bg-red-700": category === "smartphones",
+              "bg-green-700": category === "fragrances",
+              "bg-blue-700": category === "laptops",
+              "bg-yellow-700": category === "home-decoration",
+              "bg-purple-700": category === "groceries",
+              "bg-indigo-700": category === "skincare",
+            }
+          )
 
-  return <span className={badgeClasses}>{category}</span>;
+          // Define emoji icons for each category
+          const categoryIcons: Record<string, string> = {
+            smartphones: "📱",
+            fragrances: "🌸",
+            laptops: "💻",
+            "home-decoration": "🏠",
+            groceries: "🍎",
+            skincare: "🧴",
+          }
+
+          return (
+            <span className={badgeClasses} key={category}>
+              {categoryIcons[category]} {category}-{totalStock}
+            </span>
+          )
+        }
+      )}
+    </>
+  )
 }

@@ -1,6 +1,4 @@
-import Button from "./ui/Button";
-import { SearchIcon, TruckIcon } from "./ui/Icons";
-import SearchInput from "./ui/Search";
+import { TruckIcon } from "./ui/Icons"
 
 export default function Logo() {
   return (
@@ -8,5 +6,5 @@ export default function Logo() {
       <TruckIcon className="text-[#bd1e59] w-24 h-24" />
       <h1 className="text-3xl font-bold  text-gray-800">Bazar Universal</h1>
     </div>
-  );
+  )
 }

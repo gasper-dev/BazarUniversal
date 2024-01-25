@@ -1,47 +1,30 @@
-import React from "react";
-import Container from "../components/ui/Container";
-import Navbar from "../components/Navbar";
-import Cards from "../components/Cards";
-import Badge from "../components/ui/Badge";
-import data from "../../products.json";
-import { Product } from "../utils/types";
+import Container from "@/app/components/Container"
+import Navbar from "@/app/components/ui/Navbar"
+import ProductsListContainer from "@/app/components/ProductsListContainer"
+import { Suspense } from "react"
+import { CardsSkeleton } from "@/app/components/ui/Skeletons"
 
 interface Params {
-  searchParams?: { search?: string; page?: string };
+  searchParams?: { search?: string; page?: string }
 }
 
 export default function Page({ searchParams }: Params) {
-  const search = searchParams?.search || "";
-  let filtered: Product[] = [];
-  if (search.length > 3) {
-    filtered = data.products.filter((product: Product) =>
-      product.title.toLowerCase().includes(search.toLowerCase())
-    );
-  }
+  const query = searchParams?.search || ""
+  const currentPage = Number(searchParams?.page) || 1
 
   return (
-    <Container>
-      <div className="w-full flex flex-col">
-        <Navbar />
-        <h2 className="text-lg font-semibold">
-          Resultados de búsqueda de {search}: {filtered[0]?.stock}
-        </h2>
-        <div className="flex items-center space-x-2 my-2">
-          {filtered.length > 0 && (
-            <>
-              {Array.from(
-                new Set(filtered.map((product) => product.category))
-              ).map((category) => (
-                <Badge key={category} category={category} />
-              ))}
-            </>
-          )}
+    <>
+      <Navbar />
+      <Container>
+        <div className="w-full flex mt-2 flex-col">
+          <Suspense key={query} fallback={<CardsSkeleton />}>
+            <ProductsListContainer
+              searchProducts={query}
+              currentPage={currentPage}
+            />
+          </Suspense>
         </div>
-
-        {filtered.map((product) => (
-          <Cards key={product.id} product={product} />
-        ))}
-      </div>
-    </Container>
-  );
+      </Container>
+    </>
+  )
 }
