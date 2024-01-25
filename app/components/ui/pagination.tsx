@@ -112,9 +112,15 @@ function PaginationArrow({
 
   const icon =
     direction === "left" ? (
-      <ArrowLeft className="w-6" />
+      <>
+        <ArrowLeft className="w-6" />
+        <span className="sr-only">Siguiente</span>
+      </>
     ) : (
-      <ArrowRightI className="w-6" />
+      <>
+        <ArrowRightI className="w-6" />
+        <span className="sr-only">Anterior</span>
+      </>
     )
 
   return isDisabled ? (

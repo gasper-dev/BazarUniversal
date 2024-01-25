@@ -25,7 +25,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
     <div className="w-full flex items-center rounded-md border pr-2 bg-white ">
       <input
         onChange={(Event) => handleSearch(Event.target.value)}
-        className="ml-2 p-2  w-full focus:outline-none "
+        className="ml-2 p-2  w-full focus:outline-none"
         placeholder={placeholder}
         defaultValue={searchParams.get("search")?.toString()}
         type="text"
